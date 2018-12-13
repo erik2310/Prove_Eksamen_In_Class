@@ -1,0 +1,2 @@
+Man kan kryptere både username og password inden de bliver gemt i databasen ved hjælp af AES kryptering og en secret key,
+som bliver brugt til at kryptere username og password i koden inden de bliver gemt i databasen.

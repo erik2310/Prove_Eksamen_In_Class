@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Konti</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/kontiStyle.css" />
+</head>
+
+<body>
+
+    <h1 class="royalblueBackground">Konti</h1>
+
+    <table style="width:100%">
+        <tr>
+            <th>_id</th>
+            <th>username</th>
+            <th>name</th>
+            <th>account_number</th>
+            <th>deposit</th>
+            <th>interest</th>
+        </tr>
+        {{#each this}}
+        <tr>
+            <td>{{this._id}}</td>
+            <td>{{this.username}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.account_number}}</td>
+            <td>{{this.deposit}}</td>
+            <td>{{this.interest}}</td>
+        </tr>
+        {{/each}}
+    </table>
+
+    <h1 class="royalblueBackground">Tilføj en bruger</h1>
+
+    <form method="POST" action="konti/insertuser">
+        <p>username: <input type="text" name="username"></p>
+        <p>password: <input type="password" name="password"></p>
+        <p>user_type:
+            <select name="user_type">
+                <option value="customer">customer</option>
+                <option value="bank_employee">bank_employee</option>
+            </select>
+        </p>
+        <input id="button" type="submit" value="Tilføj">
+    </form>
+
+    <script src="javascripts/konti.js"></script>
+
+</body>

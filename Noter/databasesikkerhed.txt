@@ -1,0 +1,7 @@
+1 metode:
+For at forhindre SQL-injection angreb, kan man bruge en database som MongoDB hvor man ikke kan bruge SQL queries.
+
+2 metode: 
+Bruge Prepared Statements i en database som supportere SQL, hvor man skriver sin SQL query først og skriver den 
+parameter den skal søge efter bagefter i koden i en Prepared Statement. På den måde kan databasen kende forskel på 
+kode og data, uanset hvad brugeren skriver.

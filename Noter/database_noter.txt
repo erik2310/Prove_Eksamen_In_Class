@@ -1,0 +1,17 @@
+DB navn: bec_bank
+
+users
+
+username : String
+password : String
+user_type: customer | bank_employee : String
+
+
+
+accounts
+
+username : String
+name : String 
+account_number : int
+deposit : double
+interest : double
