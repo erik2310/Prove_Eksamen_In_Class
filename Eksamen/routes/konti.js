@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
         dbo.collection("accounts").find({}).toArray(function (err, result) {
             if (err) throw err;
             console.log(result);
-            db.close();            
+            db.close();
             res.render('konti', result);
         });
     });
@@ -34,24 +34,46 @@ router.get('/getjson', function (req, res, next) {
 
 
 /* POST til at indsætte en bruger. */
-router.post('/insertuser', function(req, res, next) {
-    MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db("bec_bank");
-  
-      var object = { 
-        username: req.body.username,
-        password: req.body.password,
-        user_type: req.body.user_type
-      };
-      
-      dbo.collection("users").insertOne(object, function(err, res) {
+router.post('/insertuser', function (req, res, next) {
+    MongoClient.connect(url, function (err, db) {
         if (err) throw err;
-        console.log("1 document inserted");
-        db.close();
-      });
-      res.redirect('/konti');
+        var dbo = db.db("bec_bank");
+
+        var object = {
+            username: req.body.username,
+            password: req.body.password,
+            user_type: req.body.user_type
+        };
+
+        dbo.collection("users").insertOne(object, function (err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            db.close();
+        });
+        res.redirect('/konti');
     });
-  })
+})
+
+/* POST til at logge ind. */
+router.post('/login', function (req, res, next) {
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("bec_bank");
+        dbo.collection("users").findOne({ username: req.body.username, password: req.body.password }, function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            db.close();
+            
+            if (req.body.username == result.username && req.body.password == result.password) {
+                res.redirect('/konti');
+            } else {
+                //res.render('index', { forkertLogin: "Du har indtastet et forkert brugernavn eller kodeord!" });
+                res.redirect('/');
+            }
+        });
+    });
+
+});
 
 module.exports = router;
