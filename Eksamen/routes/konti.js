@@ -13,7 +13,10 @@ router.get('/', function (req, res, next) {
             if (err) throw err;
             console.log(result);
             db.close();
-            res.render('konti', result);
+            let object = {
+                accounts: result
+            }
+            res.render('konti', object);
         });
     });
 });
@@ -27,7 +30,10 @@ router.get('/getjson', function (req, res, next) {
             if (err) throw err;
             console.log(result);
             db.close();
-            res.json(result);
+            let object = {
+                accounts: result
+            }
+            res.json(object);
         });
     });
 });
@@ -64,12 +70,21 @@ router.post('/login', function (req, res, next) {
             if (err) throw err;
             console.log(result);
             db.close();
-            
-            if (req.body.username == result.username && req.body.password == result.password) {
-                res.redirect('/konti');
+
+            if (result != null) {
+
+                if (req.body.username == result.username && req.body.password == result.password) {
+                    res.redirect('/konti');
+                } else {
+                    
+                    res.redirect('/');
+
+                }
+
             } else {
-                //res.render('index', { forkertLogin: "Du har indtastet et forkert brugernavn eller kodeord!" });
+                
                 res.redirect('/');
+                
             }
         });
     });
